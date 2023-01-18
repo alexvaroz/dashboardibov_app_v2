@@ -19,7 +19,9 @@ ibov['Código_SA'] = ibov['Código'].apply(criar_codigo_sa)
 
 data_tickers = carrega_data_tickers(ibov['Código_SA'].to_list())
 
-hora_atualizacao = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
+@st.cache
+def capturar_dt_atualizacao():
+    return datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
 
 
 @st.cache
@@ -79,6 +81,6 @@ def plot_treemap():
 st.plotly_chart(
     plot_sunburst(), use_container_width=True)
 
-st.text("Informações atualizadas em " + hora_atualizacao)
+st.text("Informações atualizadas em " + capturar_dt_atualizacao())
 st.plotly_chart(
     plot_treemap(), use_container_width=True)

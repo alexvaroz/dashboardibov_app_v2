@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import numpy as np
+import datetime
 
 from ibov_utils import conserta_setores, criar_codigo_sa, carrega_data_tickers
 
@@ -17,6 +18,8 @@ ibov['Código_SA'] = ibov['Código'].apply(criar_codigo_sa)
 
 
 data_tickers = carrega_data_tickers(ibov['Código_SA'].to_list())
+
+hora_atualizacao = datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
 
 
 @st.cache
@@ -76,5 +79,6 @@ def plot_treemap():
 st.plotly_chart(
     plot_sunburst(), use_container_width=True)
 
+st.text("Informações atualizadas em " + hora_atualizacao)
 st.plotly_chart(
     plot_treemap(), use_container_width=True)
